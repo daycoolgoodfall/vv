@@ -19,18 +19,28 @@ cat << EOF > /usr/local/etc/v2ray/config.json
 {
   "inbounds": [
     {
-      "port": 1024,
-      "protocol": "shadowsocks",
+      "port": $PORT,
+      "listen":"127.0.0.1",
+      "protocol": "vmess",
       "settings": {
-        "method": "aes-128-gcm",
-        "ota": true,
-        "password": "sspasswd"
+        "clients": [
+          {
+            "id": "$UUID",
+            "alterId": 64
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "wsSettings": {
+        "path": "/ray"
+        }
       }
     }
   ],
   "outbounds": [
     {
-      "protocol": "freedom",  
+      "protocol": "freedom",
       "settings": {}
     }
   ]
